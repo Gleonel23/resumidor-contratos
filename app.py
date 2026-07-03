@@ -54,8 +54,9 @@ if uploaded_file is not None:
                 
                 # Fazendo a requisição post sem depender de bibliotecas externas pesadas
                 headers = {'Content-Type': 'application/json'}
+                # Certifique-se de que o headers=headers está presente aqui:
                 response = requests.post(URL_API, json=payload, headers=headers)
-                
+
                 if response.status_code == 200:
                     dados_resposta = response.json()
                     # Extraindo o texto retornado pelo Gemini
