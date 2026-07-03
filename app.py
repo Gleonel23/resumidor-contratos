@@ -4,12 +4,13 @@ import requests
 
 # Configuração da API do Gemini via HTTP Direto
 GOOGLE_API_KEY = "AQ.Ab8RN6IFyRyKy5oYnRn1OZV5XnvUqGoX12NeE43aDkddf-w0IA"
+# 1. Deixe a URL limpa, sem nenhum ponto de interrogação ou parâmetro 'key'
 URL_API = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent"
 
-# Modifique a linha do headers para incluir a chave de forma segura:
+# 2. Configure os cabeçalhos enviando a chave explicitamente no 'x-goog-api-key'
 headers = {
-    'Content-Type': 'application/json',
-    'x-goog-api-key': GOOGLE_API_KEY
+    "Content-Type": "application/json",
+    "x-goog-api-key": GOOGLE_API_KEY
 }
 
 st.set_page_config(page_title="Analytics de Contratos - Procurement", layout="wide")
