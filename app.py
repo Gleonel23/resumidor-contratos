@@ -4,14 +4,9 @@ import requests
 
 # Configuração da API do Gemini via HTTP Direto
 GOOGLE_API_KEY = "AQ.Ab8RN6IFyRyKy5oYnRn1OZV5XnvUqGoX12NeE43aDkddf-w0IA"
-# 1. Deixe a URL limpa, sem nenhum ponto de interrogação ou parâmetro 'key'
-# 1. Passamos a chave direto na URL usando '?key=' no final do link
-URL_API = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key={GOOGLE_API_KEY}"
 
-# 2. O cabeçalho fica apenas com o tipo de conteúdo (remova a linha 'x-goog-api-key' daqui)
-headers = {
-    "Content-Type": "application/json"
-}
+# Colocamos a chave diretamente mapeada na URL pelo parâmetro obrigatório ?key=
+URL_API = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key={GOOGLE_API_KEY}"
 
 st.set_page_config(page_title="Analytics de Contratos - Procurement", layout="wide")
 st.title("📄 Contrato Simples")
@@ -52,10 +47,11 @@ if uploaded_file is not None:
                     }]
                 }
                 
-                # Fazendo a requisição post sem depender de bibliotecas externas pesadas
-                headers = {'Content-Type': 'application/json'}
-                # Certifique-se de que o headers=headers está presente aqui:
-                response = requests.post(URL_API, json=payload, headers=headers)
+                # Definimos o cabeçalho uma única vez de forma limpa
+                headers_requisicao = {'Content-Type': 'application/json'}
+                
+                # Fazendo a requisição passando a URL com a chave e os cabeçalhos corretos
+                response = requests.post(URL_API, json=payload, headers=headers_requisicao)
 
                 if response.status_code == 200:
                     dados_resposta = response.json()
